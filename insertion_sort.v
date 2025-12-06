@@ -36,10 +36,9 @@ Proof.
     + (* Caso x <= h: insere no início *)
       apply Permutation_refl.
     + (* Caso x > h: insere na cauda *)
-      (* Transistividade: insert x (h::tl) ~ h :: insert x tl ~ h :: x :: tl ~ x :: h :: tl *)
       apply perm_trans with (h :: x :: tl).
       * apply perm_skip. apply IH. (* Usa hipótese de indução *)
-      * apply perm_swap. (* Troca h e x de lugar *)
+      * apply perm_swap.
 Qed.
 
 (** Lema 2: insert mantém lista ordenada 
@@ -50,17 +49,15 @@ Proof.
   intros x l H.
   (* Indução na estrutura da lista l, não na prova de Sorted *)
   induction l as [| h tl IH].
-  - (* Caso Base: lista vazia *)
-    simpl. constructor.
+  - simpl. constructor.
     + constructor.
     + constructor.
-  - (* Caso Indutivo: lista h::tl *)
-    simpl. destruct (x <=? h) eqn:E.
+  - simpl. destruct (x <=? h) eqn:E.
     + (* Caso x <= h: x entra antes de h *)
       apply Nat.leb_le in E.
       constructor.
       * assumption. (* A lista original já estava ordenada *)
-      * constructor. assumption. (* x <= h *)
+      * constructor. assumption.
     + (* Caso x > h: x entra depois de h *)
       apply Nat.leb_gt in E.
       inversion H; subst. (* Decompoe a prova de que h::tl é ordenada *)
@@ -86,10 +83,8 @@ Lemma insertion_sort_perm : forall l,
 Proof.
   intros l.
   induction l as [| h tl IH].
-  - (* Caso Base *)
-    simpl. apply Permutation_refl.
-  - (* Caso Indutivo *)
-    simpl.
+  - simpl. apply Permutation_refl.
+  - simpl.
     apply perm_trans with (h :: insertion_sort tl).
     + apply insert_perm. (* Usa Lema 1 *)
     + apply perm_skip. apply IH. (* Hipótese de indução *)
@@ -102,10 +97,8 @@ Lemma insertion_sort_sorted : forall l,
 Proof.
   intros l.
   induction l as [| h tl IH].
-  - (* Caso Base *)
-    simpl. constructor.
-  - (* Caso Indutivo *)
-    simpl. apply insert_sorted. apply IH. (* Usa Lema 2 e Hipótese de Indução *)
+  - simpl. constructor.
+  - simpl. apply insert_sorted. apply IH. (* Usa Lema 2 e Hipótese de Indução *)
 Qed.
 
 (** * Teorema Principal 
