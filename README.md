@@ -26,5 +26,6 @@ Se nao houver saida de erro, significa que todas as provas foram verificadas com
 
 ## Autores
 
-* Gustavo Barbosa de Almeida
-* Vitor Camilo Lemos
+* Gustavo Barbosa de Almeida - 202037589
+* Vitor Camilo Lemos - 202037720
+* Thiago Silva Ribeiro - 202037702
